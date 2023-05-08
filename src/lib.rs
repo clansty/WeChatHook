@@ -1,11 +1,13 @@
 mod httpServer;
 mod utils;
+mod types;
 
 use std::thread;
-use tokio::runtime::Runtime;
+
 use win32console::console::WinConsole;
 use winapi::shared::minwindef::HINSTANCE;
 use windows::Win32::System::SystemServices::*;
+
 
 #[no_mangle]
 #[allow(non_snake_case, unused_variables)]
@@ -25,7 +27,6 @@ fn attach() {
     println!("nya, hello injection from Rust!");
 
     thread::spawn(move || {
-        let rt = Runtime::new().unwrap();
-        rt.block_on(httpServer::start_server());
+        httpServer::start_server();
     });
 }
