@@ -1,5 +1,6 @@
 mod getMyInfo;
-pub mod sendMessage;
+mod sendMessage;
+mod maimaiDX;
 
 use crate::types;
 
@@ -26,10 +27,18 @@ fn sendMessageRoute(params: Json<types::SendMessageParams>) -> &'static str {
     "qwq"
 }
 
+// #[get("/maimaiDX")]
+// fn maimaiRoute() -> &'static str {
+//     thread::spawn(move || {
+//         maimaiDX::qrcode();
+//     });
+//     "qwq"
+// }
+
 #[rocket::main]
 pub async fn start_server() -> Result<(), rocket::Error> {
     rocket::build()
-        .mount("/", routes![index, getMyInfoRoute, sendMessageRoute])
+        .mount("/", routes![index, getMyInfoRoute, sendMessageRoute, maimaiRoute])
         .launch()
         .await;
 
